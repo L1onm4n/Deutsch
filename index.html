@@ -14,14 +14,47 @@
       --surface:   #141414;
       --card:      #1a1a1a;
       --border:    #2a2a2a;
-      --accent:    #c8f53a;       /* electric lime — the signature pop */
-      --accent2:   #ff4d4d;       /* warning red for manipulation signals */
+      --accent:    #c8f53a;
+      --accent2:   #ff4d4d;
       --text:      #e8e8e8;
       --muted:     #888;
       --white:     #ffffff;
       --font-disp: 'Playfair Display', Georgia, serif;
       --font-body: 'Space Grotesk', system-ui, sans-serif;
+      --nav-bg:    rgba(13,13,13,0.85);
     }
+
+    body.light {
+      --bg:        #f5f5f0;
+      --surface:   #ebebе5;
+      --card:      #ffffff;
+      --border:    #d8d8d0;
+      --accent:    #5a9e00;
+      --accent2:   #cc2200;
+      --text:      #1a1a1a;
+      --muted:     #666;
+      --white:     #111111;
+      --nav-bg:    rgba(245,245,240,0.9);
+    }
+
+    /* ── Theme Toggle ── */
+    .theme-toggle {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
     html { scroll-behavior: smooth; }
 
@@ -43,7 +76,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(13,13,13,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -87,8 +120,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
       padding-top: 8rem;
-      max-width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
       padding-left: 2.5rem;
       padding-right: 2.5rem;
       position: relative;
@@ -117,7 +153,6 @@
       line-height: 1.05;
       letter-spacing: -0.03em;
       color: var(--white);
-      max-width: 800px;
       margin-bottom: 2rem;
     }
     .hero-headline em {
@@ -127,7 +162,6 @@
     .hero-sub {
       font-size: 1.1rem;
       color: var(--muted);
-      max-width: 520px;
       margin-bottom: 3rem;
     }
 
@@ -138,6 +172,8 @@
       border-radius: 12px;
       padding: 2rem;
       max-width: 560px;
+      width: 100%;
+      text-align: left;
     }
     .hook-box label {
       display: block;
@@ -496,6 +532,7 @@
     <li><a href="#quiz">Quiz</a></li>
     <li><a href="#schutz">Schutz</a></li>
   </ul>
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀️ Light</button>
 </nav>
 
 <!-- ── HERO ── -->
@@ -727,7 +764,7 @@
 <!-- ── SCHUTZ ── -->
 <section id="schutz">
   <p class="section-eyebrow fade-in">Selbstschutz</p>
-  <h2 class="fade-in">5 Strategien gegen<br>Führerkult-Manipulation</h2>
+  <h2 class="fade-in">4 Strategien gegen<br>Führerkult-Manipulation</h2>
   <p class="fade-in">
     Manipulation funktioniert nicht, wenn sie erkannt wird. Diese Strategien sind keine
     Theorie — sie sind konkrete Handlungen.
@@ -785,6 +822,12 @@
 </footer>
 
 <script>
+  // ── Theme Toggle ──
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    document.getElementById('theme-btn').textContent = isLight ? '🌙 Dark' : '☀️ Light';
+  }
+
   // ── Scroll-Animations ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
